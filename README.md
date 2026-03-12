@@ -1,59 +1,34 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+_**DOCUMENTATION**_
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+FITUR-FITUR
 
-## About Laravel
+LOGIN
+<img width="1862" height="847" alt="image" src="https://github.com/user-attachments/assets/3f76acc5-26eb-40b0-9390-e25283b9a46a" />
+register
+<img width="1851" height="852" alt="image" src="https://github.com/user-attachments/assets/ea81ff3b-2ce6-4228-967a-417faac589ad" />
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+ADMIN/PETUGAS
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+A. DASHBOARD ADMIN
+<img width="1106" height="888" alt="image" src="https://github.com/user-attachments/assets/c42082fa-18c8-48c6-bc0b-da16131e3bee" />
+B. KATEGORI
+<img width="1090" height="345" alt="image" src="https://github.com/user-attachments/assets/daeede99-d2d6-4e7d-9953-89bd5a70a64c" />
+C. BUKU
+<img width="1094" height="457" alt="image" src="https://github.com/user-attachments/assets/08540d53-3825-4cb3-8bd8-23bd1120028c" />
+D. KONFIRMASI
+<img width="1083" height="373" alt="image" src="https://github.com/user-attachments/assets/a49d14cd-f637-41e8-adbd-59f19b6be4be" />
+E. LAPORAN
+<img width="1063" height="617" alt="image" src="https://github.com/user-attachments/assets/1099aaa9-0e96-4122-a654-19261c70a13c" />
+F. PENGGUNA
+<img width="1077" height="439" alt="image" src="https://github.com/user-attachments/assets/3f1b5b0c-f1a8-4032-ab18-222c4b845e40" />
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+PENGGUNA
 
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+A. DASHBOARD PENGGUNA
+<img width="1103" height="674" alt="image" src="https://github.com/user-attachments/assets/089052fe-b4eb-4d54-9318-55ec7af0ec82" />
+B. DAFTAR BUKU
+<img width="1089" height="676" alt="image" src="https://github.com/user-attachments/assets/e9f40a10-e0a8-4963-9fd6-a6d9f41ff8ad" />
+C. KOLEKSI BUKU
+<img width="1099" height="387" alt="image" src="https://github.com/user-attachments/assets/fbb47e1d-a619-4c99-965e-7a84ced23b22" />
+D. RIWAYAT PEMINJAMAN PENGGUNA
+<img width="1087" height="481" alt="image" src="https://github.com/user-attachments/assets/bd9dbd0f-705c-4b26-ba4e-7cf5329f46cf" />
