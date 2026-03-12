@@ -11,11 +11,11 @@
     </button>
 </div>
 
-<div class="card shadow-sm border-0" style="border-radius: 15px;">
-    <div class="card-body p-0">
-        <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
-                <thead class="bg-light text-secondary">
+<div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light text-secondary">
                     <tr>
                         <th class="px-4 py-3 text-uppercase small fw-bold" width="10%">Cover</th>
                         <th class="py-3 text-uppercase small fw-bold" width="30%">Informasi Buku</th>
@@ -74,7 +74,6 @@
     </div>
 </div>
 
-{{-- --- MODAL TAMBAH --- --}}
 <div class="modal fade" id="modalTambah" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <form action="{{ route('buku.store') }}" method="POST" enctype="multipart/form-data" class="modal-content border-0 shadow" style="border-radius: 20px;">
@@ -132,7 +131,6 @@
     </div>
 </div>
 
-{{-- --- MODAL EDIT (DIUBAH KE BIRU) --- --}}
 @foreach($buku as $b)
 <div class="modal fade" id="editBuku{{ $b->BukuID }}" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">

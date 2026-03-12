@@ -112,6 +112,11 @@
                         @else
                             <li class="nav-item"><a class="nav-link" href="/kategori"><i class="fas fa-tags me-1"></i> Kategori</a></li>
                             <li class="nav-item"><a class="nav-link" href="/buku"><i class="fas fa-layer-group me-1"></i> Pendataan</a></li>
+                            <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.konfirmasi') }}">
+            <i class="fas fa-check-circle me-1"></i> Konfirmasi 
+        </a>
+    </li>
                             <li class="nav-item"><a class="nav-link" href="/laporan"><i class="fas fa-file-alt me-1"></i> Laporan</a></li>
                             <li class="nav-item"><a class="nav-link" href="/user-management"><i class="fas fa-users-cog me-1"></i> User</a></li>
                         @endif

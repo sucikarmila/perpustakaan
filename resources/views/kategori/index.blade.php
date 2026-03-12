@@ -18,8 +18,8 @@
         </div>
     @endif
 
-    <div class="card shadow-sm border-0" style="border-radius: 15px;">
-        <div class="card-body p-0"> 
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div class="card-body p-0">
             <div class="table-responsive">
                 <table class="table table-hover align-middle mb-0">
                     <thead class="bg-light text-secondary">
@@ -81,7 +81,6 @@
     </div>
 </div>
 
-{{-- --- MODAL ADD --- --}}
 <div class="modal fade" id="addKategori" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <form action="/kategori" method="POST" class="modal-content border-0 shadow-lg" style="border-radius: 20px;">
@@ -104,9 +103,7 @@
     </div>
 </div>
 
-{{-- --- MODAL EDIT & DETAIL (LOOPING) --- --}}
 @foreach($kategori as $k)
-    {{-- Modal Edit (Warna Biru) --}}
     <div class="modal fade" id="editKategori{{ $k->KategoriID }}" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <form action="/kategori/{{ $k->KategoriID }}" method="POST" class="modal-content border-0 shadow-lg" style="border-radius: 20px;">
@@ -130,7 +127,6 @@
         </div>
     </div>
 
-    {{-- Modal Detail Buku --}}
     @foreach($k->buku as $buku)
     <div class="modal fade" id="detailBuku{{ $buku->BukuID }}" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">

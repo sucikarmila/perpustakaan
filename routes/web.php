@@ -50,4 +50,9 @@ Route::get('/nota/{id}', function($id) {
 })->name('nota');
 Route::delete('/kategori/{id}', [KategoriController::class, 'destroy']);
 Route::put('/kategori/{id}', [KategoriController::class, 'update']);
+
+Route::get('/konfirmasi-peminjaman', [PeminjamanController::class, 'konfirmasiIndex'])->name('admin.konfirmasi');
+    Route::post('/setujui-pinjam/{id}', [PeminjamanController::class, 'setujuiPinjam']);
+    Route::post('/tolak-pinjam/{id}', [PeminjamanController::class, 'tolakPinjam']);
+    Route::post('/setujui-kembali/{id}', [PeminjamanController::class, 'setujuiKembali']);
 });

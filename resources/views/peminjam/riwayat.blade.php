@@ -60,13 +60,17 @@
                                     @endif
                                 </div>
                             </td>
-                            <td>
-                                @if($p->StatusPeminjaman == 'Dipinjam')
-                                    <span class="badge rounded-pill bg-soft-info text-info border border-info px-3">Sedang Dipinjam</span>
-                                @else
-                                    <span class="badge rounded-pill bg-soft-success text-success border border-success px-3">Dikembalikan</span>
-                                @endif
-                            </td>
+<td>
+    @if($p->StatusPeminjaman == 'Menunggu Persetujuan')
+        <span class="badge rounded-pill bg-warning text-dark">Menunggu Persetujuan</span>
+    @elseif($p->StatusPeminjaman == 'Dipinjam')
+        <span class="badge rounded-pill bg-info text-white">Sedang Dipinjam</span>
+    @elseif($p->StatusPeminjaman == 'Menunggu Konfirmasi Kembali')
+        <span class="badge rounded-pill bg-secondary text-white">Proses Pengembalian</span>
+    @else
+        <span class="badge rounded-pill bg-success text-white">Selesai</span>
+    @endif
+</td>
                             <td>
                                 <div class="fw-bold text-dark small">
                                     Rp {{ number_format($p->Denda + $p->BiayaTambahan, 0, ',', '.') }}
@@ -105,7 +109,6 @@
     <div class="modal fade" id="modalKembali{{$p->PeminjamanID}}" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow-lg" style="border-radius: 25px;">
-                {{-- Form Baru Tanpa Tag Penutup Langsung --}}
                 <form action="/kembalikan-buku/{{$p->PeminjamanID}}" method="POST">
                     @csrf
                     <div class="modal-body p-4 p-lg-5">

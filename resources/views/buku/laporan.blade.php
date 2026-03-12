@@ -47,7 +47,6 @@
                                         <img src="{{ asset('storage/'.$p->buku->Gambar) }}" width="40" height="55" class="rounded me-2 shadow-sm d-print-none" style="object-fit: cover;">
                                     @endif
                                     <div>
-                                        {{-- PERBAIKAN DI SINI --}}
                                         <strong class="text-dark">{{ $p->buku->Judul }}</strong><br>
                                         <small class="text-muted">ID: {{ $p->BukuID }}</small>
                                     </div>

@@ -87,7 +87,6 @@
     </div>
 </div>
 
-{{-- MODAL ULASAN PREMIUM STYLE --}}
 @foreach($buku as $b)
 <div class="modal fade" id="modalUlasan{{ $b->BukuID }}" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
