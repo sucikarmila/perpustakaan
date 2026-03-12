@@ -55,4 +55,12 @@ Route::get('/konfirmasi-peminjaman', [PeminjamanController::class, 'konfirmasiIn
     Route::post('/setujui-pinjam/{id}', [PeminjamanController::class, 'setujuiPinjam']);
     Route::post('/tolak-pinjam/{id}', [PeminjamanController::class, 'tolakPinjam']);
     Route::post('/setujui-kembali/{id}', [PeminjamanController::class, 'setujuiKembali']);
+
+    Route::get('/koleksi', [PeminjamanController::class, 'daftarKoleksi'])->name('koleksi.index');
+    
+    Route::post('/koleksi/tambah', [PeminjamanController::class, 'tambahKoleksi'])->name('koleksi.tambah');
+    
+    Route::delete('/koleksi/hapus/{id}', [PeminjamanController::class, 'hapusKoleksi'])->name('koleksi.hapus');
+
+    Route::post('/balas-ulasan/{id}', [App\Http\Controllers\PeminjamanController::class, 'balasUlasan'])->name('admin.balas.ulasan');
 });

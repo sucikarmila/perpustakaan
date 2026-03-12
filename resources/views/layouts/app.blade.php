@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        
         :root {
             --primary-blue: #0d6efd;
             --dark-blue: #0a2647;
@@ -108,15 +109,36 @@
                         
                         @if(Auth::user()->Role == 'peminjam')
                             <li class="nav-item"><a class="nav-link" href="/pinjam-buku"><i class="fas fa-book me-1"></i> Pinjam</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/riwayat"><i class="fas fa-history me-1"></i> Riwayat</a></li>
-                        @else
+<li class="nav-item">
+    <a class="nav-link position-relative" href="/koleksi">
+        <i class="fas fa-bookmark me-1"></i> Koleksi
+        @if(isset($jumlahKoleksi) && $jumlahKoleksi > 0)
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6rem;">
+                {{ $jumlahKoleksi }}
+            </span>
+        @endif
+    </a>
+</li>                            <li class="nav-item"><a class="nav-link" href="/riwayat"><i class="fas fa-history me-1"></i> Riwayat</a></li>
+                            @else
                             <li class="nav-item"><a class="nav-link" href="/kategori"><i class="fas fa-tags me-1"></i> Kategori</a></li>
                             <li class="nav-item"><a class="nav-link" href="/buku"><i class="fas fa-layer-group me-1"></i> Pendataan</a></li>
                             <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.konfirmasi') }}">
-            <i class="fas fa-check-circle me-1"></i> Konfirmasi 
-        </a>
-    </li>
+    <a class="nav-link position-relative {{ request()->routeIs('admin.konfirmasi') ? 'active' : '' }}" href="{{ route('admin.konfirmasi') }}">
+        <i class="fas fa-check-circle me-1"></i> Konfirmasi
+        
+        @php
+            $notifKonfirmasi = \App\Models\Peminjaman::whereIn('StatusPeminjaman', ['Menunggu Persetujuan', 'Menunggu Konfirmasi Kembali'])->count();
+        @endphp
+
+        @if($notifKonfirmasi > 0)
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger animate__animated animate__heartBeat animate__infinite" 
+                  style="font-size: 0.65rem; padding: 0.35em 0.65em;">
+                {{ $notifKonfirmasi }}
+                <span class="visually-hidden">permintaan baru</span>
+            </span>
+        @endif
+    </a>
+</li>
                             <li class="nav-item"><a class="nav-link" href="/laporan"><i class="fas fa-file-alt me-1"></i> Laporan</a></li>
                             <li class="nav-item"><a class="nav-link" href="/user-management"><i class="fas fa-users-cog me-1"></i> User</a></li>
                         @endif
@@ -146,5 +168,29 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     @stack('scripts')
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if(session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Berhasil!',
+        text: "{{ session('success') }}",
+        timer: 2000,
+        showConfirmButton: false
+    });
+</script>
+@endif
+
+@if(session('info'))
+<script>
+    Swal.fire({
+        icon: 'info',
+        title: 'Info',
+        text: "{{ session('info') }}",
+    });
+</script>
+@endif
 </body>
 </html>

@@ -7,7 +7,7 @@ use App\Models\Peminjaman;
 use App\Models\UlasanBuku;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\Koleksi;
 class PeminjamanController extends Controller
 {
     public function index()
@@ -164,5 +164,55 @@ public function cetakNota($id)
                    ->firstOrFail();
 
     return view('peminjam.nota', compact('p'));
+}
+public function tambahKoleksi(Request $request)
+{
+    $exists = \DB::table('koleksi_pribadi')
+                ->where('UserID', Auth::user()->UserID)
+                ->where('BukuID', $request->BukuID)
+                ->exists();
+
+    if (!$exists) {
+        \DB::table('koleksi_pribadi')->insert([
+            'UserID' => Auth::user()->UserID,
+            'BukuID' => $request->BukuID,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        return back()->with('success', 'Buku berhasil ditambahkan ke koleksi!');
+    }
+
+    return back()->with('info', 'Buku sudah ada di koleksi Anda.');
+}
+
+public function daftarKoleksi()
+{
+    $koleksi = \DB::table('koleksi_pribadi')
+                ->join('buku', 'koleksi_pribadi.BukuID', '=', 'buku.BukuID')
+                ->where('koleksi_pribadi.UserID', Auth::user()->UserID)
+                ->get();
+
+    return view('peminjam.koleksi', compact('koleksi'));
+}
+public function hapusKoleksi($id)
+{
+    \DB::table('koleksi_pribadi')
+        ->where('KoleksiID', $id)
+        ->where('UserID', Auth::user()->UserID) 
+        ->delete();
+
+    return back()->with('success', 'Buku telah dihapus dari koleksi.');
+}
+public function balasUlasan(Request $request, $id)
+{
+    $request->validate([
+        'BalasanAdmin' => 'required|string|max:255',
+    ]);
+
+    \DB::table('ulasanbuku')
+        ->where('UlasanID', $id)
+        ->update(['BalasanAdmin' => $request->BalasanAdmin]);
+
+    return back()->with('success', 'Ulasan berhasil dibalas!');
 }
 }

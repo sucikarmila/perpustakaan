@@ -65,19 +65,20 @@
                             <td class="px-4 text-center">
                                 @if($p->StatusPeminjaman == 'Menunggu Persetujuan')
                                     <div class="d-flex justify-content-center gap-2">
-                                        <form action="/setujui-pinjam/{{$p->PeminjamanID}}" method="POST">
-                                            @csrf
-                                            <button class="btn btn-sm btn-action approve shadow-sm" title="Setujui">
-                                                <i class="fas fa-check"></i>
-                                            </button>
-                                        </form>
-                                        <form action="/tolak-pinjam/{{$p->PeminjamanID}}" method="POST" id="tolakForm{{$p->PeminjamanID}}">
-                                            @csrf
-                                            <button type="button" class="btn btn-sm btn-action delete shadow-sm" onclick="confirmTolak('{{$p->PeminjamanID}}')" title="Tolak">
-                                                <i class="fas fa-times"></i>
-                                            </button>
-                                        </form>
-                                    </div>
+    <form action="/setujui-pinjam/{{$p->PeminjamanID}}" method="POST">
+        @csrf
+        <button class="btn btn-sm btn-action approve shadow-sm" title="Setujui">
+            <i class="fas fa-check-circle me-1"></i> SETUJUI
+        </button>
+    </form>
+
+    <form action="/tolak-pinjam/{{$p->PeminjamanID}}" method="POST" id="tolakForm{{$p->PeminjamanID}}">
+        @csrf
+        <button type="button" class="btn btn-sm btn-action delete shadow-sm" onclick="confirmTolak('{{$p->PeminjamanID}}')" title="Tolak">
+            <i class="fas fa-times-circle me-1"></i> TOLAK
+        </button>
+    </form>
+</div>
                                 @elseif($p->StatusPeminjaman == 'Menunggu Konfirmasi Kembali')
                                     <form action="/setujui-kembali/{{$p->PeminjamanID}}" method="POST">
                                         @csrf
@@ -87,6 +88,11 @@
                                     </form>
                                 @endif
                             </td>
+                            <td>
+    <button type="button" class="btn btn-sm btn-outline-info rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#modalBalasUlasan{{ $p->BukuID }}">
+        <i class="fas fa-comments me-1"></i> Lihat & Balas
+    </button>
+</td>
                         </tr>
                         @empty
                         <tr>
@@ -125,68 +131,132 @@
 </script>
 
 <style>
-    /* Styling Badge Kustom */
-    .custom-badge-warning {
-        background-color: #fff8eb;
-        color: #ffb020;
-        padding: 6px 16px;
-        border-radius: 50px;
-        font-weight: 600;
-        font-size: 0.8rem;
-        border: 1px solid #ffe8cc;
-    }
-    .custom-badge-info {
-        background-color: #f0f7ff;
-        color: #0d6efd;
-        padding: 6px 16px;
-        border-radius: 50px;
-        font-weight: 600;
-        font-size: 0.8rem;
-        border: 1px solid #cfe2ff;
-    }
+    .rounded-4 { border-radius: 1rem !important; }
+    .bg-soft-primary { background-color: #e7f1ff; }
     
-    /* Tombol Aksi */
-    .btn-action {
-        width: 38px;
-        height: 38px;
-        border-radius: 12px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        transition: 0.3s;
-        border: none;
-    }
-    .btn-action.approve {
-        background: #e6fffa;
-        color: #38a169;
-    }
-    .btn-action.approve:hover {
-        background: #38a169;
-        color: white;
-    }
-    .btn-action.delete { 
-        background: #fff5f5; 
-        color: #dc3545; 
-    }
-    .btn-action.delete:hover { 
-        background: #dc3545; 
-        color: white; 
-    }
-
-    /* Avatar Inisial */
     .avatar-circle {
         width: 40px;
         height: 40px;
-        background-color: #0d6efd;
+        background: linear-gradient(45deg, #0d6efd, #0dcaf0);
         color: white;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         font-weight: bold;
+        box-shadow: 0 2px 5px rgba(13, 110, 253, 0.2);
+    }
+
+    .custom-badge-warning {
+        background-color: #fff8eb;
+        color: #f59e0b;
+        padding: 6px 14px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 0.75rem;
+        border: 1px solid #fef3c7;
+        display: inline-block;
+    }
+    .custom-badge-info {
+        background-color: #f0f7ff;
+        color: #3b82f6;
+        padding: 6px 14px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 0.75rem;
+        border: 1px solid #dbeafe;
+        display: inline-block;
+    }
+
+    .btn-action {
+        padding: 8px 16px;
+        border-radius: 12px;
+        font-weight: 800;
+        font-size: 0.7rem;
+        letter-spacing: 1px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         text-transform: uppercase;
     }
 
-    .bg-soft-primary { background-color: #e7f1ff; }
+    .btn-action.approve {
+        background-color: #ecfdf5;
+        color: #10b981;
+        border: 1px solid #d1fae5;
+    }
+
+    .btn-action.approve:hover {
+        background-color: #10b981;
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-action.delete {
+        background-color: #fff1f2;
+        color: #f43f5e;
+        border: 1px solid #ffe4e6;
+    }
+
+    .btn-action.delete:hover {
+        background-color: #f43f5e;
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(244, 63, 94, 0.3);
+    }
+
+    .modal-content { border-radius: 20px !important; border: none; }
+    .modal-header { border-bottom: 1px solid #f0f0f0; }
+    .ulasan-item {
+        transition: 0.3s;
+        border: 1px solid #eee;
+    }
+    .ulasan-item:hover { border-color: #0d6efd; }
 </style>
+@foreach($peminjaman as $p)
+<div class="modal fade" id="modalBalasUlasan{{ $p->BukuID }}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 25px;">
+            <div class="modal-header border-0 bg-light px-4 py-3" style="border-radius: 25px 25px 0 0;">
+                <h5 class="modal-title fw-bold text-dark"><i class="fas fa-star text-warning me-2"></i>Ulasan: {{ $p->buku->Judul }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4" style="max-height: 400px; overflow-y: auto;">
+                @forelse($p->buku->ulasan as $u)
+                    <div class="mb-4 p-3 rounded-4 shadow-sm border {{ $u->BalasanAdmin ? 'bg-white' : 'bg-light' }}">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="fw-bold text-primary">{{ $u->user->Username }}</span>
+                            <span class="text-warning small">{{ str_repeat('⭐', $u->Rating) }}</span>
+                        </div>
+                        <p class="text-muted small mb-2">"{{ $u->Ulasan }}"</p>
+                        
+                        @if($u->BalasanAdmin)
+                            <div class="ms-4 p-2 border-start border-primary border-3 bg-soft-primary rounded">
+                                <small class="fw-bold d-block text-primary"><i class="fas fa-reply me-1"></i>Balasan Admin:</small>
+                                <p class="small mb-0 text-dark fst-italic">{{ $u->BalasanAdmin }}</p>
+                            </div>
+                        @else
+                            <form action="{{ route('admin.balas.ulasan', $u->UlasanID) }}" method="POST" class="mt-3">
+                                @csrf
+                                <div class="input-group input-group-sm">
+                                    <input type="text" name="BalasanAdmin" class="form-control border-primary-subtle" placeholder="Tulis balasan..." required>
+                                    <button class="btn btn-primary" type="submit">Kirim</button>
+                                </div>
+                            </form>
+                        @endif
+                    </div>
+                @empty
+                    <div class="text-center py-4">
+                        <i class="fas fa-comment-slash fa-3x text-light mb-2"></i>
+                        <p class="text-muted small">Belum ada ulasan untuk buku ini.</p>
+                    </div>
+                @endforelse
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
 @endsection

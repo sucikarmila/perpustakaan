@@ -41,45 +41,53 @@
                     <p class="text-muted extra-small mb-2"><i class="fas fa-pen-nib me-1"></i> {{ $b->Penulis ?? 'Penulis Anonim' }}</p>
 
                     <div class="review-preview mb-3">
-                        @php $avgRating = $b->ulasan->avg('Rating') ?? 0; @endphp
-                        <div class="d-flex align-items-center mb-2">
-                            <div class="text-warning small me-2">
-                                @for($i = 1; $i <= 5; $i++)
-                                    <i class="{{ $i <= $avgRating ? 'fas' : 'far' }} fa-star"></i>
-                                @endfor
-                            </div>
-                            <span class="extra-small text-muted">({{ $b->ulasan->count() }})</span>
-                        </div>
-                        
-                        @forelse($b->ulasan->take(1) as $u)
-                            <div class="qoute-box">
-                                <p class="text-muted fst-italic extra-small mb-0">
-                                    "{{ Str::limit($u->Ulasan, 45) }}"
-                                </p>
-                            </div>
-                        @empty
-                            <p class="extra-small text-muted fst-italic mb-0">Belum ada ulasan.</p>
-                        @endforelse
-                    </div>
+    @php $avgRating = $b->ulasan->avg('Rating') ?? 0; @endphp
+    <div class="d-flex align-items-center mb-2">
+        <div class="text-warning small me-2">
+            @for($i = 1; $i <= 5; $i++)
+                <i class="{{ $i <= $avgRating ? 'fas' : 'far' }} fa-star"></i>
+            @endfor
+        </div>
+        <span class="extra-small text-muted">({{ $b->ulasan->count() }})</span>
+    </div>
+    
+    @forelse($b->ulasan->take(1) as $u)
+        <div class="qoute-box mb-2">
+            <p class="text-muted fst-italic extra-small mb-0">
+                "{{ Str::limit($u->Ulasan, 45) }}"
+            </p>
+        </div>
+        <a href="javascript:void(0)" 
+           class="text-primary fw-bold extra-small text-decoration-none" 
+           data-bs-toggle="modal" 
+           data-bs-target="#modalUlasan{{ $b->BukuID }}">
+           Lihat semua ulasan...
+        </a>
+    @empty
+        <p class="extra-small text-muted fst-italic mb-0">Belum ada ulasan.</p>
+    @endforelse
+</div>
 
                     <div class="mt-auto">
-                        @if($b->Stok > 0)
-                            <a href="{{ route('pinjam.form', $b->BukuID) }}" class="btn btn-primary w-100 rounded-pill btn-sm fw-bold py-2 shadow-sm btn-pinjam">
-                                Pinjam Sekarang
-                            </a>
-                        @else
-                            <button class="btn btn-light w-100 rounded-pill btn-sm fw-bold py-2 text-muted border" disabled>
-                                Stok Kosong
-                            </button>
-                        @endif
-                        
-                        @if($b->ulasan->count() > 0)
-                        <button class="btn btn-link w-100 btn-sm text-decoration-none text-primary fw-bold mt-1 shadow-none" 
-                                data-bs-toggle="modal" data-bs-target="#modalUlasan{{ $b->BukuID }}" style="font-size: 0.7rem;">
-                            Lihat Semua Ulasan
-                        </button>
-                        @endif
-                    </div>
+    <form action="{{ route('koleksi.tambah') }}" method="POST" class="mb-2">
+        @csrf
+        <input type="hidden" name="BukuID" value="{{ $b->BukuID }}">
+        <button type="submit" class="btn btn-outline-danger w-100 rounded-pill btn-sm fw-bold shadow-sm">
+            <i class="far fa-heart me-1"></i> Simpan ke Koleksi
+        </button>
+    </form>
+
+    @if($b->Stok > 0)
+        <a href="{{ route('pinjam.form', $b->BukuID) }}" class="btn btn-primary w-100 rounded-pill btn-sm fw-bold py-2 shadow-sm btn-pinjam">
+            Ajukan Pinjaman
+        </a>
+    @else
+        <button class="btn btn-light w-100 rounded-pill btn-sm fw-bold py-2 text-muted border" disabled>
+            Stok Kosong
+        </button>
+    @endif
+    
+    </div>
                 </div>
             </div>
         </div>
@@ -108,26 +116,40 @@
                 </div>
                 <hr class="opacity-10">
                 @foreach($b->ulasan as $u)
-                <div class="d-flex mb-4 p-3 bg-light rounded-4">
-                    <div class="flex-shrink-0">
-                        <div class="avatar-circle">
-                            {{ strtoupper(substr($u->user->Username ?? 'U', 0, 1)) }}
-                        </div>
-                    </div>
-                    <div class="ms-3">
-                        <div class="d-flex justify-content-between">
-                            <h6 class="fw-bold mb-0 small">{{ $u->user->Username ?? 'User' }}</h6>
-                            <span class="text-warning extra-small">
-                                {{ str_repeat('⭐', $u->Rating) }}
-                            </span>
-                        </div>
-                        <p class="text-muted small my-2 lh-base">{{ $u->Ulasan }}</p>
-                        <small class="text-uppercase fw-bold text-muted" style="font-size: 0.6rem; letter-spacing: 1px;">
-                            {{ $u->created_at ? $u->created_at->diffForHumans() : '-' }}
-                        </small>
-                    </div>
+<div class="mb-4">
+    <div class="d-flex p-3 bg-light rounded-4">
+        <div class="flex-shrink-0">
+            <div class="avatar-circle">
+                {{ strtoupper(substr($u->user->Username ?? 'U', 0, 1)) }}
+            </div>
+        </div>
+        <div class="ms-3 w-100">
+            <div class="d-flex justify-content-between">
+                <h6 class="fw-bold mb-0 small">{{ $u->user->Username ?? 'User' }}</h6>
+                <span class="text-warning extra-small">
+                    {{ str_repeat('⭐', $u->Rating) }}
+                </span>
+            </div>
+            <p class="text-muted small my-2 lh-base">{{ $u->Ulasan }}</p>
+            
+            @if($u->BalasanAdmin)
+                <div class="mt-2 p-2 border-start border-primary border-3 bg-white rounded shadow-sm">
+                    <small class="fw-bold d-block text-primary" style="font-size: 0.7rem;">
+                        <i class="fas fa-reply fa-rotate-180 me-1"></i> Balasan Admin:
+                    </small>
+                    <p class="small mb-0 text-dark fst-italic">{{ $u->BalasanAdmin }}</p>
                 </div>
-                @endforeach
+            @endif
+
+            <div class="mt-2">
+                <small class="text-uppercase fw-bold text-muted" style="font-size: 0.6rem; letter-spacing: 1px;">
+                    {{ $u->created_at ? $u->created_at->diffForHumans() : '-' }}
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
             </div>
         </div>
     </div>
