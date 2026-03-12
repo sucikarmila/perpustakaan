@@ -78,13 +78,29 @@
                             {{ $p->TanggalPengembalian ? date('d/m/Y', strtotime($p->TanggalPengembalian)) : '-' }}
                         </td>
                         <td class="text-center small">
-                            <span class="d-print-none badge {{ $p->StatusPeminjaman == 'kembali' ? 'bg-success' : 'bg-warning text-dark' }}">
-                                {{ ucfirst($p->StatusPeminjaman) }}
-                            </span>
-                            <span class="d-none d-print-block fw-bold">
-                                {{ ucfirst($p->StatusPeminjaman) }}
-                            </span>
-                        </td>
+    @if($p->StatusPeminjaman == 'Dikembalikan' || $p->StatusPeminjaman == 'kembali')
+        <span class="d-print-none badge bg-success px-3">
+            <i class="fas fa-check-circle me-1"></i> Dikembalikan
+        </span>
+        <span class="d-none d-print-block fw-bold text-success">
+            Dikembalikan
+        </span>
+    @elseif($p->StatusPeminjaman == 'Dipinjam')
+        <span class="d-print-none badge bg-danger px-3">
+            <i class="fas fa-clock me-1"></i> Dipinjam
+        </span>
+        <span class="d-none d-print-block fw-bold text-danger">
+            Dipinjam
+        </span>
+    @else
+        <span class="d-print-none badge bg-warning text-dark px-3">
+            {{ ucfirst($p->StatusPeminjaman) }}
+        </span>
+        <span class="d-none d-print-block fw-bold">
+            {{ ucfirst($p->StatusPeminjaman) }}
+        </span>
+    @endif
+</td>
                     </tr>
                     @empty
                     <tr>
