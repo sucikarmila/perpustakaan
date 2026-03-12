@@ -11,7 +11,28 @@
             <i class="fas fa-print me-2"></i> Cetak Laporan
         </button>
     </div>
-
+    <div class="card border-0 shadow-sm rounded-4 mb-4 d-print-none">
+        <div class="card-body p-3">
+            <form action="{{ url('/laporan') }}" method="GET" class="row g-2 align-items-end">
+                <div class="col-md-4">
+                    <label class="form-label small fw-bold text-muted">Mulai Tanggal</label>
+                    <input type="date" name="start_date" class="form-control rounded-3" value="{{ request('start_date') }}">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label small fw-bold text-muted">Sampai Tanggal</label>
+                    <input type="date" name="end_date" class="form-control rounded-3" value="{{ request('end_date') }}">
+                </div>
+                <div class="col-md-4 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary w-100 rounded-3 fw-bold">
+                        <i class="fas fa-filter me-1"></i> Filter
+                    </button>
+                    <a href="{{ url('/laporan') }}" class="btn btn-light border w-100 rounded-3 fw-bold text-muted">
+                        <i class="fas fa-undo me-1"></i> Reset
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
     <div class="print-header d-none d-print-block">
         <div class="d-flex align-items-center justify-content-center mb-2">
             <div class="me-3">

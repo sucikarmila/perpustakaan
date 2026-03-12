@@ -18,12 +18,20 @@ class BukuController extends Controller
         return view('buku.index', compact('buku', 'kategori'));
     }
 
-    public function generateLaporan() 
-    {
-        $laporan = Peminjaman::with(['user', 'buku'])->orderBy('TanggalPeminjaman', 'desc')->get();
-        return view('buku.laporan', compact('laporan'));
+    public function generateLaporan(Request $request) { 
+    $query = Peminjaman::with(['buku', 'user']);
+
+    if ($request->filled('start_date')) {
+        $query->whereDate('TanggalPeminjaman', '>=', $request->start_date);
+    }
+    if ($request->filled('end_date')) {
+        $query->whereDate('TanggalPeminjaman', '<=', $request->end_date);
     }
 
+    $laporan = $query->orderBy('TanggalPeminjaman', 'desc')->get();
+    
+    return view('buku.laporan', compact('laporan')); 
+}
     public function store(Request $request) 
 {
     try {
