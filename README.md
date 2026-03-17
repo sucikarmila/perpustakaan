@@ -1,3 +1,108 @@
+
+# 📚 Sistem Informasi Perpustakaan Digital - Laravel
+
+Aplikasi manajemen perpustakaan modern berbasis **Laravel** yang dirancang untuk mempermudah pengelolaan data buku, keanggotaan, serta proses peminjaman dan pengembalian buku secara digital.
+
+---
+
+## 🎯 Fitur Utama
+
+### 🔐 Autentikasi & Multi-User
+- **Sistem Login**: Akses berbeda untuk Petugas/Admin dan Anggota.
+- **Manajemen User**: Pengelolaan data pengguna dan hak akses sistem.
+
+### 📖 Manajemen Katalog Buku
+- **Data Buku**: Input judul, penulis, penerbit, tahun terbit, dan kategori.
+- **Kategori Buku**: Pengelompokan buku berdasarkan genre atau topik.
+- **Stok Buku**: Pemantauan jumlah buku yang tersedia untuk dipinjam.
+
+### 🔄 Transaksi Peminjaman
+- **Peminjaman**: Pencatatan tanggal pinjam dan batas waktu kembali.
+- **Pengembalian**: Proses retur buku dengan pengecekan keterlambatan.
+- **Riwayat**: Catatan lengkap aktivitas peminjaman setiap anggota.
+
+### 📊 Laporan & Cetak
+- **Laporan Transaksi**: Rekapitulasi data peminjaman dalam periode tertentu.
+- **Ekspor Data**: Cetak laporan dalam format PDF .
+
+---
+
+## 🗄️ Database Schema
+
+Situs ini menggunakan relasi database untuk menghubungkan buku dengan transaksi peminjaman:
+
+```mermaid
+graph TD
+    user -->|Melayani| peminjaman
+    buku -->|Dipinjam| peminjaman
+    kategoribuku -->|Mengelompokkan| buku
+    peminjam -->|Melakukan| peminjaman
+````
+
+-----
+
+## 🚀 Quick Start (Instalasi)
+
+Ikuti langkah berikut untuk menjalankan proyek di perangkat lokal Anda:
+
+1.  **Clone Repository**
+
+    ```bash
+    git clone [https://github.com/sucikarmila/perpustakaan.git](https://github.com/sucikarmila/perpustakaan.git)
+    cd perpustakaan
+    ```
+
+2.  **Install Dependencies**
+
+    ```bash
+    composer install
+    npm install && npm run build
+    ```
+
+3.  **Setup Environment**
+
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+    ```
+
+4.  **Konfigurasi Database**
+    Sesuaikan `.env` dengan database lokal Anda:
+
+    ```env
+    DB_DATABASE=perpustakaan
+    DB_USERNAME=root
+    DB_PASSWORD=
+    ```
+
+5.  **Migrasi & Seeding**
+
+    ```bash
+    php artisan migrate --seed
+    ```
+
+6.  **Jalankan Aplikasi**
+
+    ```bash
+    php artisan serve
+    ```
+
+    Akses di: `http://localhost:8000`
+
+-----
+
+## 🎓 Spesifikasi Hak Akses
+
+| Fitur | Petugas (Admin) | Anggota |
+| :--- | :---: | :---: |
+| Kelola Data Kategori Buku | ✓ | - |
+| Kelola Data Buku | ✓ | - |
+| Kelola Anggota | ✓ | - |
+| Input Peminjaman | - | ✓ |
+| Lihat Riwayat Pinjam | ✓ | ✓ |
+| Cari Katalog Buku | ✓ | ✓ |
+
+
 _**DOCUMENTATION**_
 
 FITUR-FITUR
