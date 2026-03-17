@@ -1,106 +1,136 @@
 
-# 📚 Sistem Informasi Perpustakaan Digital - Laravel
+# 📚 Sistem Informasi Perpustakaan Digital - Laravel 11
 
-Aplikasi manajemen perpustakaan modern berbasis **Laravel** yang dirancang untuk mempermudah pengelolaan data buku, keanggotaan, serta proses peminjaman dan pengembalian buku secara digital.
+[![Laravel Version](https://img.shields.io/badge/Laravel-11.x-red.svg)](https://laravel.com)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+Aplikasi manajemen perpustakaan modern yang dirancang untuk mendigitalisasi seluruh ekosistem literasi, mulai dari pengelolaan katalog buku oleh petugas hingga interaksi peminjaman oleh anggota secara real-time.
 
 ---
 
 ## 🎯 Fitur Utama
 
 ### 🔐 Autentikasi & Multi-User
-- **Sistem Login**: Akses berbeda untuk Petugas/Admin dan Anggota.
-- **Manajemen User**: Pengelolaan data pengguna dan hak akses sistem.
+- **Role-Based Access**: Pemisahan hak akses yang ketat antara **Petugas (Admin)** dan **Anggota (Peminjam)**.
+- **Secure Register**: Sistem pendaftaran anggota baru dengan validasi data yang aman.
 
-### 📖 Manajemen Katalog Buku
-- **Data Buku**: Input judul, penulis, penerbit, tahun terbit, dan kategori.
-- **Kategori Buku**: Pengelompokan buku berdasarkan genre atau topik.
-- **Stok Buku**: Pemantauan jumlah buku yang tersedia untuk dipinjam.
+### 📖 Manajemen Katalog & Inventaris
+- **Data Master**: Kelola kategori, penulis, penerbit, hingga tahun terbit buku secara terpusat.
+- **Monitoring Stok**: Pemantauan jumlah ketersediaan buku yang siap dipinjam secara otomatis.
 
-### 🔄 Transaksi Peminjaman
-- **Peminjaman**: Pencatatan tanggal pinjam dan batas waktu kembali.
-- **Pengembalian**: Proses retur buku dengan pengecekan keterlambatan.
-- **Riwayat**: Catatan lengkap aktivitas peminjaman setiap anggota.
+### 🔄 Transaksi Digital
+- **Smart Lending**: Pencatatan tanggal pinjam dan estimasi batas waktu pengembalian.
+- **Konfirmasi Petugas**: Alur kerja validasi peminjaman oleh admin untuk keamanan aset.
+- **Riwayat & Koleksi**: Anggota dapat melacak buku yang sedang dipinjam atau menyimpan buku favorit ke koleksi pribadi.
 
-### 📊 Laporan & Cetak
+### 📊 Pelaporan & Audit
 - **Laporan Transaksi**: Rekapitulasi data peminjaman dalam periode tertentu.
-- **Ekspor Data**: Cetak laporan dalam format PDF .
+- **PDF Export**: Cetak laporan resmi dalam format PDF untuk kebutuhan administratif.
 
 ---
 
 ## 🗄️ Database Schema
 
-Situs ini menggunakan relasi database untuk menghubungkan buku dengan transaksi peminjaman:
-
 ```mermaid
 graph TD
-    user -->|Melayani| peminjaman
-    buku -->|Dipinjam| peminjaman
-    kategoribuku -->|Mengelompokkan| buku
-    peminjam -->|Melakukan| peminjaman
+    user[Admin] -->|Melayani| peminjaman
+    peminjam[User] -->|Melakukan| peminjaman
+    buku[Buku] -->|Dipinjam| peminjaman
+    kategoribuku[Kategori buku] -->|Mengelompokkan| buku
 ````
 
 -----
 
 ## 🚀 Quick Start (Instalasi)
 
-Ikuti langkah berikut untuk menjalankan proyek di perangkat lokal Anda:
-
-1.  **Clone Repository**
+1.  **Clone & Install**
 
     ```bash
     git clone [https://github.com/sucikarmila/perpustakaan.git](https://github.com/sucikarmila/perpustakaan.git)
     cd perpustakaan
-    ```
-
-2.  **Install Dependencies**
-
-    ```bash
     composer install
     npm install && npm run build
     ```
 
-3.  **Setup Environment**
+2.  **Environment & Key**
 
     ```bash
     cp .env.example .env
     php artisan key:generate
     ```
 
-4.  **Konfigurasi Database**
-    Sesuaikan `.env` dengan database lokal Anda:
-
-    ```env
-    DB_DATABASE=perpustakaan
-    DB_USERNAME=root
-    DB_PASSWORD=
-    ```
-
-5.  **Migrasi & Seeding**
+3.  **Database Setup**
+    Konfigurasi database di file `.env`, lalu jalankan:
 
     ```bash
     php artisan migrate --seed
+    php artisan storage:link
     ```
 
-6.  **Jalankan Aplikasi**
+4.  **Run Application**
 
     ```bash
     php artisan serve
     ```
 
-    Akses di: `http://localhost:8000`
+-----
+
+## 🛠️ Troubleshooting & Debugging
+
+Jika Anda menemui kendala saat menjalankan aplikasi, silakan ikuti langkah-langkah berikut:
+
+### 1\. Masalah Izin Folder (Permissions)
+
+Jika muncul error terkait penulisan file, jalankan perintah berikut:
+
+```bash
+chmod -R 775 storage bootstrap/cache
+```
+
+### 2\. Reset Database & Cache
+
+Jika skema database tidak sinkron atau data tidak muncul:
+
+```bash
+# Hapus dan buat ulang tabel (Hati-hati: Data akan hilang!)
+php artisan migrate:fresh --seed
+
+# Bersihkan semua cache aplikasi
+php artisan optimize:clear
+```
+
+### 3\. Debugging Mode
+
+Untuk melihat detail error saat pengembangan, pastikan nilai berikut di file `.env`:
+
+```env
+APP_DEBUG=true
+APP_ENV=local
+```
+
+### 4\. Masalah Gambar/Asset
+
+Jika gambar atau cover buku tidak muncul, pastikan *symbolic link* sudah dibuat:
+
+```bash
+php artisan storage:link
+```
 
 -----
 
-## 🎓 Spesifikasi Hak Akses
+## 📸 Dokumentasi Antarmuka
 
-| Fitur | Petugas (Admin) | Anggota |
-| :--- | :---: | :---: |
-| Kelola Data Kategori Buku | ✓ | - |
-| Kelola Data Buku | ✓ | - |
-| Kelola Anggota | ✓ | - |
-| Input Peminjaman | - | ✓ |
-| Lihat Riwayat Pinjam | ✓ | ✓ |
-| Cari Katalog Buku | ✓ | ✓ |
+### Halaman Petugas (Admin)
+
+  - **Manajemen Katalog**: Kategori, Buku, dan Konfirmasi Peminjaman.
+  - **Reporting**: Fitur cetak laporan PDF tersedia di menu Laporan.
+
+### Halaman Anggota (Pengguna)
+
+  - **Katalog Digital**: Jelajahi daftar buku dan simpan ke Koleksi.
+  - **Track Record**: Pantau status peminjaman dan riwayat pengembalian.
+
+-----
 
 
 _**DOCUMENTATION**_
